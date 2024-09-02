@@ -2,12 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form"
 import TaskCard from "./Components/TaskCard";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+
 const firebaseUrl='https://todo-app-14261-default-rtdb.asia-southeast1.firebasedatabase.app/'
 function App() {
 let {register,handleSubmit,reset}=useForm(true);
 let [status,setStatus]=useState(true);
 let [todos,setTodos]=useState([]);
-let arr1=[]
+
 function submitHandler(data){
   let task=data.taskInput;
 
@@ -48,7 +50,18 @@ useEffect(()=>{
 
   return (
     <>
+    
     <h1 className="bg-violet-600 text-white text-center text-lg p-3">“Make each day your masterpiece.” ―John Wooden</h1>
+    <div className="mt-2 ml-5">
+    <header>
+      <SignedOut>
+        <SignInButton />
+      </SignedOut>
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
+    </header>
+    </div>
     <div className="w-[380px] mt-8 mx-auto p-2">
       <h1 className="text-lg text-center">Welcome back to task manager!</h1>
     <form action="" onSubmit={handleSubmit(submitHandler)} >
